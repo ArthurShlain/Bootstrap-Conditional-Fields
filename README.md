@@ -1,6 +1,6 @@
 This script allows you to show/hide fields depending on the values of another fields.
 
-`php
+```php
 function update_fields() {
   var $fields = $('[data-condition][data-condition-value]'), $field, condition, val, $trigger, trigger_value;
   $.each($fields, function (value) {
@@ -26,4 +26,4 @@ function update_fields() {
           }
       }
   });
-}`
+}```
