@@ -3,7 +3,7 @@ This version tested with Bootstrap 3.
 
 Funtion to update fields state:
 
-```php
+```js
 function init_conditional_fields(){
   function update_fields() {
     var $fields = $('[data-condition][data-condition-value]'), $field, condition, val, $trigger, trigger_value;
@@ -19,13 +19,11 @@ function init_conditional_fields(){
             }
             if ($.inArray(trigger_value, val) !== -1) {
                 if (!$field.is(':visible'))
-                    $field.css('display', 'none').removeClass('hidden').slideDown(500);
+                    $field.css('display', 'none').slideDown(500);
             }
             else {
                 if ($field.is(':visible')) {
-                    $field.slideUp(500, function () {
-                        $(this).addClass('hidden');
-                    });
+                    $field.slideUp(500);
                 }
             }
         }
@@ -38,15 +36,17 @@ function init_conditional_fields(){
 
   update_fields();
 }
+
+init_conditional_fields();
 ```
 
 Usage example:
 
 ```html
 <form>
-  <div class="form-group">
+  <div>
     <label for="field1">Field 1</label>
-    <select name="field1" id="field1" class="form-control">
+    <select name="field1" id="field1" class="form-control condition-trigger">
       <option value="1">No</option>
       <option value="2">Yes</option>
       <option value="3">No</option>
@@ -54,7 +54,7 @@ Usage example:
       <option value="5">Yes</option>
     </select>
   </div>
-  <div class="form-group" data-condition="field1" data-condition-value="2;5">
+  <div data-condition="field1" data-condition-value="2;5">
     <label for="field2">Field 2</label>
     <input name="field2" id="field2" type="text" class="form-control condition-trigger">
   </div>
