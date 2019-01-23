@@ -3,7 +3,7 @@ This version tested with Bootstrap 3.
 
 Demo: https://codepen.io/ArtZ91/pen/YBPYrm
 
-Funtion to update fields state:
+Javascript code (requires jQuery):
 
 ```js
 function init_conditional_fields(){
