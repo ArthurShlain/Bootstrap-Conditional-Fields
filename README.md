@@ -1,5 +1,4 @@
 This script allows you to show/hide fields depending on the values of another fields.
-This version tested with Bootstrap 3.
 
 Demo: https://codepen.io/ArtZ91/pen/YBPYrm
 
