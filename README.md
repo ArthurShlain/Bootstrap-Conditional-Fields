@@ -7,26 +7,56 @@ Javascript code (requires jQuery):
 ```js
 function init_conditional_fields(){
   var $body = $('body');
+  function toggle_field($field, trigger_value, val) {
+      console.log('toggle field ' + trigger_value + ' : ' + val);
+      console.log($field);
+      if ($.inArray(trigger_value, val) !== -1) {
+          if (!$field.is(':visible'))
+              $field.css('display', 'none').slideDown(500);
+      }
+      else {
+          if ($field.is(':visible')) {
+              $field.slideUp(500);
+          }
+      }
+  }
   function update_fields() {
-      var $fields = $('[data-condition][data-condition-value]'), $field, condition, val, $trigger, trigger_value;
+      var $fields = $('[data-condition][data-condition-value]'), $field, condition, condition_values, $trigger, trigger_value;
       $.each($fields, function () {
           $field = $(this);
           condition = $field.attr('data-condition');
-          val = $field.attr('data-condition-value').toString().split(';');
+          condition_values = $field.attr('data-condition-value').toString().split(';');
           $trigger = $('[name="' + condition + '"]');
           if ($trigger.length) {
-              trigger_value = $trigger.val().toString();
-              if($trigger.is('[type="checkbox"]')){
-                  trigger_value = $trigger.prop( "checked" ) ? '1' : '0';
-              }
-              if ($.inArray(trigger_value, val) !== -1) {
-                  if (!$field.is(':visible'))
-                      $field.css('display', 'none').slideDown(500);
+              if($trigger.length === 1){
+                  trigger_value = $trigger.val().toString();
+                  if($trigger.is('[type="checkbox"]')){
+                      trigger_value = $trigger.prop( "checked" ) ? '1' : '0';
+                  }
+                  toggle_field($field, trigger_value, condition_values);
               }
               else {
-                  if ($field.is(':visible')) {
-                      $field.slideUp(500);
+                  var or = '0';
+                  var and = '1';
+                  $.each($trigger, function (id, trigger_instance) {
+                      trigger_value = $(trigger_instance).val().toString();
+                      if($trigger.is('[type="checkbox"]')){
+                          trigger_value = $trigger.prop( "checked" ) ? '1' : '0';
+                      }
+                      if ($.inArray(trigger_value, condition_values) !== -1) {
+                          or = '1';
+                      }
+                      else {
+                          and = '0';
+                      }
+                  });
+                  if($field.hasClass('condition-logical-or')){
+                      trigger_value = or;
                   }
+                  else {
+                      trigger_value = and;
+                  }
+                  toggle_field($field, trigger_value, ['1']);
               }
           }
           else {
