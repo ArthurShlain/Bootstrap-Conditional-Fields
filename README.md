@@ -39,10 +39,11 @@ function init_conditional_fields(){
   $body.on('change', '.condition-trigger', function () {
       update_fields();
   });
-  $body.on('click', 'a.condition-trigger', function () {
+  $body.on('click', 'condition-trigger-delayed', function () {
+      var delay = $(this).attr('data-delay');
       setTimeout(function () {
           update_fields();
-      }, 1000);
+      }, delay);
   });
   update_fields();
 }
