@@ -43,15 +43,19 @@ $.ajax({
 ```
 
 Example: all fields must be valid
-```
+```html
 <div class="form-group condition-logical-and" data-condition="floors[]" data-condition-value="1">
   ...
 </div>
 ```
 
 Example: at least one field is valid
-```
+```html
 <div class="form-group condition-logical-or" data-condition="floors[]" data-condition-value="1">
   ...
 </div>
 ```
+
+Adding triggers with delay ()
+```html
+<a href="#" data-toggle="collapse" data-target=".my-animated-div" class="condition-trigger-delayed" data-delay="600">I need more fields</a>
