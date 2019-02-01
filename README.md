@@ -56,7 +56,7 @@ Example: at least one field is valid
 </div>
 ```
 
-Adding triggers with delay ()
+Adding triggers with delay
 ```html
 <a href="#" data-toggle="collapse" data-target=".my-animated-div" 
    class="condition-trigger-delayed" data-delay="600">I need more fields</a>
