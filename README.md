@@ -31,7 +31,7 @@ function init_conditional_fields(){
     });
   }
 
-  $('.condition-trigger').on('change', function () {
+  $('body').on('change', '.condition-trigger', function () {
       update_fields();
   });
 
