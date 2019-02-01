@@ -41,3 +41,17 @@ $.ajax({
   }
 });
 ```
+
+Example: all fields must be valid
+```
+<div class="form-group condition-logical-and" data-condition="floors[]" data-condition-value="1">
+  ...
+</div>
+```
+
+Example: at least one field is valid
+```
+<div class="form-group condition-logical-or" data-condition="floors[]" data-condition-value="1">
+  ...
+</div>
+```
