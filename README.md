@@ -1,98 +1,18 @@
 This script allows you to show/hide fields depending on the values of another fields.
 
-Demo: https://codepen.io/ArtZ91/pen/YBPYrm
+Old Demo: https://codepen.io/ArtZ91/pen/YBPYrm
 
-Javascript code (requires jQuery):
-
-```js
-function init_conditional_fields(){
-  var $body = $('body');
-  function toggle_field($field, trigger_value, val) {
-      console.log('toggle field ' + trigger_value + ' : ' + val);
-      console.log($field);
-      if ($.inArray(trigger_value, val) !== -1) {
-          if (!$field.is(':visible'))
-              $field.css('display', 'none').slideDown(500);
-      }
-      else {
-          if ($field.is(':visible')) {
-              $field.slideUp(500);
-          }
-      }
-  }
-  function update_fields() {
-      var $fields = $('[data-condition][data-condition-value]'), $field, condition, condition_values, $trigger, trigger_value;
-      $.each($fields, function () {
-          $field = $(this);
-          condition = $field.attr('data-condition');
-          condition_values = $field.attr('data-condition-value').toString().split(';');
-          $trigger = $('[name="' + condition + '"]');
-          if ($trigger.length) {
-              if($trigger.length === 1){
-                  trigger_value = $trigger.val().toString();
-                  if($trigger.is('[type="checkbox"]')){
-                      trigger_value = $trigger.prop( "checked" ) ? '1' : '0';
-                  }
-                  toggle_field($field, trigger_value, condition_values);
-              }
-              else {
-                  var or = '0';
-                  var and = '1';
-                  $.each($trigger, function (id, trigger_instance) {
-                      trigger_value = $(trigger_instance).val().toString();
-                      if($trigger.is('[type="checkbox"]')){
-                          trigger_value = $trigger.prop( "checked" ) ? '1' : '0';
-                      }
-                      if ($.inArray(trigger_value, condition_values) !== -1) {
-                          or = '1';
-                      }
-                      else {
-                          and = '0';
-                      }
-                  });
-                  if($field.hasClass('condition-logical-or')){
-                      trigger_value = or;
-                  }
-                  else {
-                      trigger_value = and;
-                  }
-                  toggle_field($field, trigger_value, ['1']);
-              }
-          }
-          else {
-              if ($field.is(':visible')){
-                  $field.slideUp(500);
-              }
-          }
-      });
-  }
-  $body.on('change', '.condition-trigger', function () {
-      update_fields();
-  });
-  $body.on('click', '.condition-trigger-delayed', function () {
-      var delay = $(this).attr('data-delay');
-      setTimeout(function () {
-          update_fields();
-      }, delay);
-  });
-  update_fields();
-}
-
-init_conditional_fields();
-```
-
-Usage example:
-
+HTML
 ```html
-<form>
+<form class="form-conditional">
   <div>
     <label for="field1">Field 1</label>
     <select name="field1" id="field1" class="form-control condition-trigger">
-      <option value="1">No</option>
-      <option value="2">Yes</option>
-      <option value="3">No</option>
-      <option value="4">No</option>
-      <option value="5">Yes</option>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+      <option value="4">Option 4</option>
+      <option value="5">Option 5</option>
     </select>
   </div>
   <div data-condition="field1" data-condition-value="2;5">
@@ -100,4 +20,24 @@ Usage example:
     <input name="field2" id="field2" type="text" class="form-control condition-trigger">
   </div>
 </form>
+```
+
+JS
+```js
+jQuery(function(){
+  $('.form-conditional').conditionalFields('init');
+});
+```
+
+AJAX Example
+```js
+$.ajax({
+  url: '/my-form',
+  method: 'GET',
+  dataType: "html",
+  success: function (html) {
+      $('.form-conditional').html(html);
+      $('.form-conditional').conditionalFields('update');
+  }
+});
 ```
