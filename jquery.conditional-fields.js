@@ -10,25 +10,17 @@
 
     $.fn.conditionalFields = function (action) {
         var $base = $(this);
-        
-        /**
-         * Toggle field visibility
-         */
         function toggle_field($field, trigger_value, val) {
             if ($.inArray(trigger_value, val) !== -1) {
-                if (!$field.is(':visible'))
-                    $field.css('display', 'none').slideDown(500);
+                if ($field.css('display') === 'none')
+                    $field.slideDown(500);
             }
             else {
-                if ($field.is(':visible')) {
+                if ($field.css('display') !== 'none') {
                     $field.slideUp(500);
                 }
             }
         }
-        
-        /**
-         * Update conditional fields
-         */
         function update_fields() {
             var $fields = $base.find('[data-condition][data-condition-value]');
             var $field, condition, condition_values, $trigger, trigger_value;
@@ -70,23 +62,16 @@
                     }
                 }
                 else {
-                    if ($field.is(':visible')){
+                    if ($field.css('display') !== 'none'){
                         $field.slideUp(500);
                     }
                 }
             });
         }
-        
-        /**
-         * Init events
-         */
         function init_events(){
-            // On change .condition-trigger class event
             $base.on('change', '.condition-trigger', function () {
                 update_fields();
             });
-            
-            // On change .condition-trigger-delayed class event
             $base.on('click', '.condition-trigger-delayed', function () {
                 var delay = $(this).attr('data-delay');
                 setTimeout(function () {
@@ -94,7 +79,6 @@
                 }, delay);
             });
         }
-        
         if(action === 'init'){
             init_events();
             update_fields();
