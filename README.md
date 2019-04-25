@@ -1,6 +1,6 @@
 This script allows you to show/hide fields depending on the values of another fields.
 
-Old Demo: https://codepen.io/ArtZ91/pen/YBPYrm
+Demo: https://codepen.io/ArtZ91/pen/YBPYrm
 
 HTML
 ```html
