@@ -29,6 +29,9 @@
                 condition = $field.attr('data-condition');
                 condition_values = $field.attr('data-condition-value').toString().split(';');
                 $trigger = $('[name="' + condition + '"]');
+                if($trigger.is('[type="radio"]')){
+                    $trigger = $('[name="' + condition + '"]:checked');
+                }
                 if ($trigger.length) {
                     if($trigger.length === 1){
                         trigger_value = $trigger.val().toString();
